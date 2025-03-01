@@ -1,0 +1,5 @@
+CompileFlags:
+  CompilationDatabase: build/
+  Compiler: arm-none-eabi-g++
+
+
