@@ -100,7 +100,6 @@ extern "C" void *_sbrk(ptrdiff_t incr) {
 /* Includes */
 extern "C" {
 #include <errno.h>
-#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>

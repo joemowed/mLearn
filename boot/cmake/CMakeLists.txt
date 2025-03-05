@@ -47,3 +47,9 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 
     # Add user defined libraries
 )
+#stolen from stackoverflow, generates dependency graph
+add_custom_target(graphviz ALL
+    COMMAND ${CMAKE_COMMAND} "--graphviz=graphviz.dot" .
+    COMMAND dot -Tpng graphviz.dot -o graphviz.png
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+)

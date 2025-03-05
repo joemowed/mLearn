@@ -5,6 +5,5 @@
 #include <vector>
 void boot(void) {
     std::vector<uint32_t> vec{5, 2, 3};
-    int i = vec.at(0);
     std::sort(vec.begin(), vec.end());
 }
