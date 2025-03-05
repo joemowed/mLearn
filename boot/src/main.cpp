@@ -1,13 +1,10 @@
-#include <cerrno>
+// called by main, this is entry point.  Runs in loop.
+#include <algorithm>
 #include <cstdint>
-#include <cstdlib>
+#include <irq.hpp>
 #include <vector>
-int main(void) {
-    for (int i = 0; i < 1000; i++) {
-        std::vector<int> *N = new std::vector<int>(33);
-        volatile void *i2 = malloc(300);
-        volatile void *i3 = i2;
-        N->push_back(i);
-    }
-    return 0;
+void boot(void) {
+    std::vector<uint32_t> vec{5, 2, 3};
+    int i = vec.at(0);
+    std::sort(vec.begin(), vec.end());
 }

@@ -132,7 +132,11 @@ void _exit(int status) {
     while (1) {
     } /* Make sure we hang here */
 }
-
+// always fails
+int getentropy(void *buffer, size_t length) {
+    errno = -1;
+    return -1;
+}
 __attribute__((weak)) int _read(int file, char *ptr, int len) {
     (void)file;
     int DataIdx;

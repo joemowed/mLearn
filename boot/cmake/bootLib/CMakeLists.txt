@@ -14,8 +14,10 @@ target_include_directories(bootLib INTERFACE
 )
 
 FILE(GLOB SOURCES "../../bootLib/*.cpp")
+FILE(GLOB ASM_SOURCES "../../bootLib/*.s")
 target_sources(bootLib INTERFACE
     ${SOURCES}
+    ${ASM_SOURCES}
 )
 
 # Validate that bootLib code is compatible with C standard

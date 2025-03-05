@@ -14,7 +14,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Set the project name
-set(CMAKE_PROJECT_NAME Boot)
+set(CMAKE_PROJECT_NAME boot)
 
 # Include toolchain file
 include("arm-none-eabi.cmake")
@@ -31,9 +31,8 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
-
-# Add STM32CubeMX generated sources
-add_subdirectory(lib/)
+#include the cmake file for the bootlib
+add_subdirectory(bootLib/)
 
 # Add sources to executable
 FILE(GLOB SOURCES "../src/*.cpp")
