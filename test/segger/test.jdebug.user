@@ -1,0 +1,24 @@
+
+
+Breakpoint=/home/jmaloney/Documents/mLearn/test/bootLib/startup_stm32f767xx.s:61, State=BP_STATE_DISABLED
+Breakpoint=0x08000004, State=BP_STATE_DISABLED
+OpenDocument="mcu.cpp", FilePath="/home/jmaloney/Documents/mLearn/test/bootLib/mcu.cpp", Line=0
+OpenDocument="startup_stm32f767xx.s", FilePath="/home/jmaloney/Documents/mLearn/test/bootLib/startup_stm32f767xx.s", Line=57
+OpenDocument="main.cpp", FilePath="/home/jmaloney/Documents/mLearn/test/src/main.cpp", Line=0
+OpenDocument="main.cpp", FilePath="/home/jmaloney/Documents/mLearn/test/bootLib/main.cpp", Line=0
+OpenToolbar="Debug", Floating=0, x=0, y=0
+OpenWindow="Call Stack", DockArea=RIGHT, x=0, y=1, w=824, h=456, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=824, h=537, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Break & Tracepoints", DockArea=LEFT, x=0, y=0, w=850, h=678, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VectorCatchIndexMask=255
+OpenWindow="Memory 1", DockArea=BOTTOM, x=2, y=0, w=509, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x800295A
+OpenWindow="Functions", DockArea=LEFT, x=0, y=1, w=850, h=315, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Terminal", DockArea=BOTTOM, x=1, y=0, w=761, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Console", DockArea=BOTTOM, x=0, y=0, w=1278, h=318, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
+TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[131;157;536;113;146;100]
+TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
+TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
+TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[26;26;26;26]
+TableHeader="Vector Catches", SortCol="", SortOrder="ASCENDING", VisibleCols=["";"Vector Catch";"Description"], ColWidths=[50;300;500]
+TableHeader="Break & Tracepoints", SortCol="", SortOrder="ASCENDING", VisibleCols=["";"Type";"Location";"Extras"], ColWidths=[100;100;131;1235]
+TableHeader="Functions", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Class";"Source"], ColWidths=[4382;100;100;100;756;1094]

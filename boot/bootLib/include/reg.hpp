@@ -1,12 +1,12 @@
 #ifndef REG_INC_GRD
 #define REG_INC_GRD
 #include <cstdint>
-#include <type_traits>
-
 // Register base class.  Not to be used by user code
 class Reg32Base {
   protected:
     volatile uint32_t *const reg;
+    void writeBase(uint32_t value) const;
+    uint32_t readBase(void) const;
 
   public:
     // Register base class.  Not to be used by user code
@@ -16,14 +16,14 @@ class Reg32Base {
     uint32_t *getReg() const;
 };
 // read-only register
-class Reg32_RO : virtual public Reg32Base {
+class Reg32_RO : public Reg32Base {
   public:
     using Reg32Base::Reg32Base;
     uint32_t read() const;
 };
 
 // write-only register
-class Reg32_WO : virtual public Reg32Base {
+class Reg32_WO : public Reg32Base {
   public:
     using Reg32Base::Reg32Base;
     void write(uint32_t value) const;
