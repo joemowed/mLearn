@@ -42,6 +42,7 @@ set(CMAKE_ASM_FLAGS "${CMAKE_CXX_FLAGS} -x assembler-with-cpp -MMD -MP")
 #no run-time-type-info, no exeptions, no atomic statics
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions -fno-threadsafe-statics")
 
+
 #processor specific flags
 set(CMAKE_CXX_LINK_FLAGS "${TARGET_FLAGS}")
 #set linker file location
