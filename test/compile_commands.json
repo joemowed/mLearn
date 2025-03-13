@@ -1,0 +1,50 @@
+[
+{
+  "directory": "/home/jmaloney/Documents/mLearn/test/build",
+  "command": "/usr/bin/arm-none-eabi-g++  -I/home/jmaloney/Documents/mLearn/test/cmake/bootLib/../../bootLib/include -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard  -Wall -Wextra  -Wpedantic  -fdata-sections -ffunction-sections -O0 -g3 -fno-rtti -fno-exceptions -fno-threadsafe-statics -g -std=gnu++20 -o CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/src/main.cpp.obj -c /home/jmaloney/Documents/mLearn/test/src/main.cpp",
+  "file": "/home/jmaloney/Documents/mLearn/test/src/main.cpp",
+  "output": "CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/src/main.cpp.obj"
+},
+{
+  "directory": "/home/jmaloney/Documents/mLearn/test/build",
+  "command": "/usr/bin/arm-none-eabi-g++  -I/home/jmaloney/Documents/mLearn/test/cmake/bootLib/../../bootLib/include -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard  -Wall -Wextra  -Wpedantic  -fdata-sections -ffunction-sections -O0 -g3 -fno-rtti -fno-exceptions -fno-threadsafe-statics -g -std=gnu++20 -o CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/gpio.cpp.obj -c /home/jmaloney/Documents/mLearn/test/bootLib/gpio.cpp",
+  "file": "/home/jmaloney/Documents/mLearn/test/bootLib/gpio.cpp",
+  "output": "CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/gpio.cpp.obj"
+},
+{
+  "directory": "/home/jmaloney/Documents/mLearn/test/build",
+  "command": "/usr/bin/arm-none-eabi-g++  -I/home/jmaloney/Documents/mLearn/test/cmake/bootLib/../../bootLib/include -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard  -Wall -Wextra  -Wpedantic  -fdata-sections -ffunction-sections -O0 -g3 -fno-rtti -fno-exceptions -fno-threadsafe-statics -g -std=gnu++20 -o CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/irq.cpp.obj -c /home/jmaloney/Documents/mLearn/test/bootLib/irq.cpp",
+  "file": "/home/jmaloney/Documents/mLearn/test/bootLib/irq.cpp",
+  "output": "CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/irq.cpp.obj"
+},
+{
+  "directory": "/home/jmaloney/Documents/mLearn/test/build",
+  "command": "/usr/bin/arm-none-eabi-g++  -I/home/jmaloney/Documents/mLearn/test/cmake/bootLib/../../bootLib/include -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard  -Wall -Wextra  -Wpedantic  -fdata-sections -ffunction-sections -O0 -g3 -fno-rtti -fno-exceptions -fno-threadsafe-statics -g -std=gnu++20 -o CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/main.cpp.obj -c /home/jmaloney/Documents/mLearn/test/bootLib/main.cpp",
+  "file": "/home/jmaloney/Documents/mLearn/test/bootLib/main.cpp",
+  "output": "CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/main.cpp.obj"
+},
+{
+  "directory": "/home/jmaloney/Documents/mLearn/test/build",
+  "command": "/usr/bin/arm-none-eabi-g++  -I/home/jmaloney/Documents/mLearn/test/cmake/bootLib/../../bootLib/include -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard  -Wall -Wextra  -Wpedantic  -fdata-sections -ffunction-sections -O0 -g3 -fno-rtti -fno-exceptions -fno-threadsafe-statics -g -std=gnu++20 -o CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/mcu.cpp.obj -c /home/jmaloney/Documents/mLearn/test/bootLib/mcu.cpp",
+  "file": "/home/jmaloney/Documents/mLearn/test/bootLib/mcu.cpp",
+  "output": "CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/mcu.cpp.obj"
+},
+{
+  "directory": "/home/jmaloney/Documents/mLearn/test/build",
+  "command": "/usr/bin/arm-none-eabi-g++  -I/home/jmaloney/Documents/mLearn/test/cmake/bootLib/../../bootLib/include -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard  -Wall -Wextra  -Wpedantic  -fdata-sections -ffunction-sections -O0 -g3 -fno-rtti -fno-exceptions -fno-threadsafe-statics -g -std=gnu++20 -o CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/reg.cpp.obj -c /home/jmaloney/Documents/mLearn/test/bootLib/reg.cpp",
+  "file": "/home/jmaloney/Documents/mLearn/test/bootLib/reg.cpp",
+  "output": "CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/reg.cpp.obj"
+},
+{
+  "directory": "/home/jmaloney/Documents/mLearn/test/build",
+  "command": "/usr/bin/arm-none-eabi-g++  -I/home/jmaloney/Documents/mLearn/test/cmake/bootLib/../../bootLib/include -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard  -Wall -Wextra  -Wpedantic  -fdata-sections -ffunction-sections -O0 -g3 -fno-rtti -fno-exceptions -fno-threadsafe-statics -g -std=gnu++20 -o CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/syscalls.cpp.obj -c /home/jmaloney/Documents/mLearn/test/bootLib/syscalls.cpp",
+  "file": "/home/jmaloney/Documents/mLearn/test/bootLib/syscalls.cpp",
+  "output": "CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/syscalls.cpp.obj"
+},
+{
+  "directory": "/home/jmaloney/Documents/mLearn/test/build",
+  "command": "/usr/bin/arm-none-eabi-g++  -I/home/jmaloney/Documents/mLearn/test/cmake/bootLib/../../bootLib/include -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard  -Wall -Wextra  -Wpedantic  -fdata-sections -ffunction-sections -O0 -g3 -x assembler-with-cpp -MMD -MP -g -o CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/startup_stm32f767xx.s.obj -c /home/jmaloney/Documents/mLearn/test/bootLib/startup_stm32f767xx.s",
+  "file": "/home/jmaloney/Documents/mLearn/test/bootLib/startup_stm32f767xx.s",
+  "output": "CMakeFiles/boot.dir/home/jmaloney/Documents/mLearn/test/bootLib/startup_stm32f767xx.s.obj"
+}
+]

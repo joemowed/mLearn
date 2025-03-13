@@ -27,7 +27,7 @@ set(TARGET_FLAGS "-mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard ")
 
 set(CMAKE_CXX_FLAGS "${TARGET_FLAGS}")
 #enable extra warnings
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra  -Wpedantic ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-deprecated -Wpedantic ")
 #enable more memory sectioning
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdata-sections -ffunction-sections")
 

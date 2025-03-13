@@ -1,6 +1,9 @@
-extern void boot(void);
+extern void loop(void);
+extern void init(void);
 extern "C" int main(void) {
+    init();
+
     while (true) {
-        boot();
+        loop();
     }
 }

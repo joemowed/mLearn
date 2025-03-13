@@ -11,6 +11,7 @@ enable_language(C ASM CXX)
 
 target_include_directories(bootLib INTERFACE
     ../../bootLib/include
+    ../../bootLib/include/CMSIS
 )
 
 FILE(GLOB SOURCES "../../bootLib/*.cpp")
