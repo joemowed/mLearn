@@ -133,6 +133,8 @@ void _exit(int status) {
 }
 // always fails
 int getentropy(void *buffer, size_t length) {
+    (void)length;
+    (void)buffer; // silence warning "Unused parameter"
     errno = -1;
     return -1;
 }

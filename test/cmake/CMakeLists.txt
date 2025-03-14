@@ -34,8 +34,9 @@ add_executable(${CMAKE_PROJECT_NAME})
 #include the cmake file for the bootlib
 add_subdirectory(bootLib/)
 
+include_directories(../app/include)
 # Add sources to executable
-FILE(GLOB SOURCES "../src/*.cpp")
+FILE(GLOB SOURCES "../app/src/*.cpp")
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 ${SOURCES}
     # Add user sources here
