@@ -5,29 +5,65 @@ consteval uint32_t divisionFactorToPLLP(uint32_t division_factor) {
     switch (division_factor) {
     case 2:
         ret = val2fld(RCC_PLLCFGR_PLLP, 0x0);
+        break;
     case 4:
         ret = val2fld(RCC_PLLCFGR_PLLP, 0x1);
+        break;
     case 6:
         ret = val2fld(RCC_PLLCFGR_PLLP, 0x2);
+        break;
     case 8:
         ret = val2fld(RCC_PLLCFGR_PLLP, 0x3);
+        break;
+    default:
+        consteval_error_trigger("Error: invalid clock prescaler selection");
     }
     return ret;
 }
 
-consteval uint32_t divisionFactorToPPREx(uint32_t division_factor) {
+consteval uint32_t divisionFactorToPPRE1(uint32_t division_factor) {
     uint32_t ret = 0;
     switch (division_factor) {
     case 1:
         ret = RCC_CFGR_PPRE1_DIV1;
+        break;
     case 2:
         ret = RCC_CFGR_PPRE1_DIV2;
+        break;
     case 4:
         ret = RCC_CFGR_PPRE1_DIV4;
+        break;
     case 8:
         ret = RCC_CFGR_PPRE1_DIV8;
+        break;
     case 16:
         ret = RCC_CFGR_PPRE1_DIV16;
+        break;
+    default:
+        consteval_error_trigger("Error: invalid clock prescaler selection");
+    }
+    return ret;
+}
+consteval uint32_t divisionFactorToPPRE2(uint32_t division_factor) {
+    uint32_t ret = 0;
+    switch (division_factor) {
+    case 1:
+        ret = RCC_CFGR_PPRE2_DIV1;
+        break;
+    case 2:
+        ret = RCC_CFGR_PPRE2_DIV2;
+        break;
+    case 4:
+        ret = RCC_CFGR_PPRE2_DIV4;
+        break;
+    case 8:
+        ret = RCC_CFGR_PPRE2_DIV8;
+        break;
+    case 16:
+        ret = RCC_CFGR_PPRE2_DIV16;
+        break;
+    default:
+        consteval_error_trigger("Error: invalid clock prescaler selection");
     }
     return ret;
 }
@@ -38,22 +74,33 @@ consteval uint32_t divisionFactorToHPRE(uint32_t division_factor) {
     switch (division_factor) {
     case 1:
         ret = RCC_CFGR_HPRE_DIV1;
+        break;
     case 2:
         ret = RCC_CFGR_HPRE_DIV2;
+        break;
     case 4:
         ret = RCC_CFGR_HPRE_DIV4;
+        break;
     case 8:
         ret = RCC_CFGR_HPRE_DIV8;
+        break;
     case 16:
         ret = RCC_CFGR_HPRE_DIV16;
+        break;
     case 64:
         ret = RCC_CFGR_HPRE_DIV64;
+        break;
     case 128:
         ret = RCC_CFGR_HPRE_DIV128;
+        break;
     case 256:
         ret = RCC_CFGR_HPRE_DIV256;
+        break;
     case 512:
         ret = RCC_CFGR_HPRE_DIV512;
+        break;
+    default:
+        consteval_error_trigger("Error: invalid clock prescaler selection");
     }
     return ret;
 }
@@ -108,16 +155,21 @@ void clk::init() {
     RMW(RCC->CR, RCC_CR_PLLON, 0x1); // turn PLL on
 
     tmp = 0;
-    tmp |= divisionFactorToPPREx(clk::APB1_prescaler);
-    tmp |= divisionFactorToPPREx(clk::APB2_prescaler);
+    tmp |= divisionFactorToPPRE1(clk::APB1_prescaler);
+    tmp |= divisionFactorToPPRE2(clk::APB2_prescaler);
     tmp |= divisionFactorToHPRE(clk::AHB_prescaler);
     RCC->CFGR = tmp; // set APB1,APB2,and AHB prescalers
+
+    while (!fld2val(RCC_CR_PLLRDY, RCC->CR)) {
+        // wait for PLL to be ready
+    }
+    RMW(RCC->CFGR, RCC_CFGR_SW, RCC_CFGR_SW_PLL); // switch system clock to PLL
 }
 // only works when mask contains only a single non-zero bit
-static void initPeriphrialClock(volatile uint32_t &reg, const uint32_t msk) {
+void clk::initPeriphrialClock(volatile uint32_t &reg, const uint32_t msk) {
     xRMW(reg, msk);
     while (!xfld2val(msk, RCC->APB1ENR)) {
-        // wait for PWR peripherial clock to be online
+        // wait for peripherial clock to be online
     }
 }
 void clk::reset() {}

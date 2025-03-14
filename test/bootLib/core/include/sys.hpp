@@ -7,4 +7,6 @@ class sys {
     static void enableART();
     // turns on overdrive scale 1 within PWR peripherial
     static void enableOverdrive();
+    // performs clock/flash/power system initialization
+    static void init();
 };

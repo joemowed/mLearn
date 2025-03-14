@@ -29,7 +29,7 @@ class clk {
     static uint32_t getAPB1TimerClock();
     static uint32_t getAPB2TimerCLock();
 
-    static void initPeriphrialClock(volatile uint32_t reg, const uint32_t msk);
+    static void initPeriphrialClock(volatile uint32_t &reg, const uint32_t msk);
     // starts clocks as configured in the clk class header
     static void init();
     // resets clocks to reset state
