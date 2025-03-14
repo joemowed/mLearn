@@ -10,20 +10,6 @@ void init(void) {
 
     static char r;
 
-    uint32_t tmp = val2fld(RCC_PLLCFGR_PLLM, 8U); // divide refrence clock by 8 for main PLL
-    tmp |= val2fld(RCC_PLLCFGR_PLLN, 216U);       // multiply by 216 main PLL
-    tmp |= val2fld(RCC_PLLCFGR_PLLP, 0U);         // no division on main PLL
-    RCC->PLLCFGR = tmp;                           // configure PLLs
-    tmp = 0;
-
-    RMW(RCC->CR, RCC_CR_PLLON, 0x1); // turn PLL on
-
-    tmp |= val2fld(RCC_CFGR_PPRE1, 0x5);
-    tmp |= val2fld(RCC_CFGR_PPRE2, 0x5);
-    tmp |= val2fld(RCC_CFGR_HPRE, 0x0); //
-    RCC->CFGR = tmp;                    // set APB1,APB2,and AHB prescalers
-    tmp = 0;
-
     RMW(RCC->APB1ENR, RCC_APB1ENR_PWREN, 1);
     while (!fld2val(RCC_APB1ENR_PWREN, RCC->APB1ENR)) {
         // wait for PWR peripherial clock to be online
