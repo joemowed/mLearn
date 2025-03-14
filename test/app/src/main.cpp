@@ -1,5 +1,6 @@
 // called by main, this is entry point.  Runs in loop.
 #include "SEGGER_RTT.hpp"
+#include "debug.hpp"
 #include "reg.hpp"
 #include <cmath>
 void init(void) {
@@ -50,6 +51,7 @@ void init(void) {
     RMW(GPIOC->MODER, GPIO_MODER_MODER6, 0x1); // 0x1 for output mode
     RMW(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEEDR6, 0x3);
     void printfTest();
+    debug::printf("this is a test");
     printfTest();
 }
 
