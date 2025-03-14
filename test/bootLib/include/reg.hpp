@@ -90,7 +90,7 @@ consteval uint32_t validateValue(const uint32_t msk, const uint32_t value) {
     }
     return value;
 }
-consteval uint32_t val2fld(const uint32_t msk, const uint32_t value) {
+consteval uint32_t val2fld(const uint32_t msk, const uint32_t value) { // tested, working
 
     validateMask(msk);
     const uint32_t shiftedValue = shiftValueToMask(msk, value);
@@ -98,5 +98,5 @@ consteval uint32_t val2fld(const uint32_t msk, const uint32_t value) {
     return shiftedValue;
 }
 #define RMW(reg, msk, value) (reg = ((reg & (~(msk))) | (val2fld(msk, value))))
-#define fld2val(msk, reg) (((uint32_t)(reg) << (msk##_Pos) & validateMask(msk##_Msk))
+#define fld2val(field, value) (((uint32_t)(value) & validateMask(field##_Msk)) >> field##_Pos) // tested, working
 #endif

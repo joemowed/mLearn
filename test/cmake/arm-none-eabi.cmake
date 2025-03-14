@@ -35,7 +35,7 @@ if(CMAKE_BUILD_TYPE MATCHES DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g3")
 endif()
 if(CMAKE_BUILD_TYPE MATCHES RELEASE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Os -g0")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Os -g3")
 endif()
 #unknown -MMD,-MP, -xassembler-with-cpp enables c header symbols when assembling .asm files
 set(CMAKE_ASM_FLAGS "${CMAKE_CXX_FLAGS} -x assembler-with-cpp -MMD -MP")
