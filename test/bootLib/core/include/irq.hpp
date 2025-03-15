@@ -1,5 +1,5 @@
 extern "C" {
-namespace IRQ {
+namespace irq {
 
 /* System IRQs*/
 void NMI_Handler(void);
@@ -108,5 +108,5 @@ void CEC_IRQHandler(void);                /* HDMI_CEC                     */
 void I2C4_EV_IRQHandler(void);            /* I2C4 Event                   */
 void I2C4_ER_IRQHandler(void);            /* I2C4 Error                   */
 void SPDIF_RX_IRQHandler(void);           /* SPDIF_RX                     */
-} // namespace IRQ
+} // namespace irq
 }
