@@ -21,7 +21,7 @@ void sys::enableART() {
     dbc.printOK("ART enabled");
 }
 void sys::init() {
-    SEGGER_RTT_Init();
+    debugConsole::init();
     dbc.printInfo("System start up initialized, RTT enabled");
     sys::enableOverdrive();
     sys::enableART();

@@ -1,3 +1,4 @@
+#include "debug.hpp"
 #include "reg.hpp"
 void init(void) {
     RMW(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN, 1); // enable GPIO clock
@@ -9,10 +10,12 @@ void init(void) {
 }
 
 void loop(void) {
+    debugClient dbc("TEST", true);
     while (1) {
         // RMW(GPIOC->ODR, GPIO_ODR_OD6, 1);
         // RMW(GPIOC->ODR, GPIO_ODR_OD6, 0);
         GPIOC->BSRR = GPIO_BSRR_BS_6;
+        dbc.printInfo("TESTING");
         GPIOC->BSRR = GPIO_BSRR_BR_6;
     }
 }
