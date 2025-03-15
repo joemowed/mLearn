@@ -26,6 +26,23 @@ class debugConsole {
     static void vprintInfo(const bool locally_enabled, const char *log_class, const char *str,
                            va_list *args);
 };
+/* From SEGGER_RTT_printf:
+ *  Notes
+ *    (1) Conversion specifications have following syntax:
+ *          %[flags][FieldWidth][.Precision]ConversionSpecifier
+ *    (2) Supported flags:
+ *          -: Left justify within the field width
+ *          +: Always print sign extension for signed conversions
+ *          0: Pad with 0 instead of spaces. Ignored when using '-'-flag or precision
+ *        Supported conversion specifiers:
+ *          c: Print the argument as one char
+ *          d: Print the argument as a signed integer
+ *          u: Print the argument as an unsigned integer
+ *          x: Print the argument as an hexadecimal integer
+ *          s: Print the string pointed to by the argument
+ *          p: Print the argument as an 8-digit hexadecimal integer.
+ *          (Argument shall be a pointer to void.)*/
+
 class debugClient {
   private:
     // max number of characters before " - " (e.g 'Clock - ')
