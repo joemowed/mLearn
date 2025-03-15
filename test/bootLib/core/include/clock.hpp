@@ -14,7 +14,8 @@ class clk {
     static constexpr uint32_t APB2_prescaler = 4; // valid values are 1,2,4,8,16
     static constexpr uint32_t APB1_prescaler = 4; // valid values are 1,2,4,8,16
     static constexpr uint32_t AHB_prescaler = 1;  // valid values are 1,2,4,8,16,64,128,256,512
-    static constexpr uint32_t system_core_clock = (((osc_input_clock / PLLM_prescaler) * PLLN_mult_factor) / PLLP_prescaler);
+    static constexpr uint32_t system_core_clock =
+        (((osc_input_clock / PLLM_prescaler) * PLLN_mult_factor) / PLLP_prescaler);
     static constexpr uint32_t APB1_timer_clock = system_core_clock * 2 / APB1_prescaler;
     static constexpr uint32_t APB2_timer_clock = system_core_clock * 2 / APB2_prescaler;
     static constexpr uint32_t APB1_clock = system_core_clock / APB1_prescaler;
@@ -25,6 +26,7 @@ class clk {
     constexpr static bool logging_active = true;
     constexpr static debugConsole::LogClass log_class = "Clock  -";
     static void logClock(const uint32_t freq, const char *clock_name);
+    static debugClient dbc;
 
   public:
     static void infoClocks();

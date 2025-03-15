@@ -3,6 +3,7 @@
 #include "reg.hpp"
 #include <cstdio>
 bool clk::is_clock_initialized = false;
+debugClient clk::dbc("CLOCK", true);
 consteval uint32_t divisionFactorToPLLP(uint32_t division_factor) {
     uint32_t ret = 0;
     switch (division_factor) {
@@ -156,7 +157,7 @@ uint32_t clk::getAHBClock() {
     }
 }
 void clk::init() {
-    // debugConsole::printInfo(logging_active, log_class, "Initialization started");
+    dbc.printInfo("Initialization started");
     clk::infoClocks();
     uint32_t tmp = 0;
     tmp |=
@@ -166,7 +167,7 @@ void clk::init() {
     RCC->PLLCFGR = tmp;                                      // configure PLLs
 
     RMW(RCC->CR, RCC_CR_PLLON, 0x1); // turn PLL on
-    // debugConsole::printInfo(logging_active, log_class, "PLL enabled");
+    dbc.printInfo("PLL enabled");
 
     tmp = 0;
     tmp |= divisionFactorToPPRE1(clk::APB1_prescaler);
@@ -177,22 +178,22 @@ void clk::init() {
     while (!fld2val(RCC_CR_PLLRDY, RCC->CR)) {
         // wait for PLL to be ready
     }
-    // debugConsole::printInfo(logging_active, log_class, "PLL ready");
+    dbc.printInfo("PLL ready");
     RMW(RCC->CFGR, RCC_CFGR_SW, RCC_CFGR_SW_PLL); // switch system clock to PLL
     is_clock_initialized = true;
-    // debugConsole::printInfo(logging_active, log_class, "system clock source changed to PLL");
+    dbc.printInfo("system clock source changed to PLL");
     clk::infoClocks();
-    // debug::printOK(logging_active, log_class, "system clock initialization complete");
+    dbc.printOK("system clock initialization complete");
 }
 
 // only works when mask contains only a single non-zero bit
 void clk::initPeriphrialClock(volatile uint32_t &reg, const uint32_t msk) {
-    // debugConsole::printInfo(logging_active, log_class, "Periphrial clock activation started");
+    dbc.printInfo("Periphrial clock activation started");
     xRMW(reg, msk);
     while (!xfld2val(msk, RCC->APB1ENR)) {
         // wait for peripherial clock to be online
     }
-    // debugConsole::printInfo(logging_active, log_class, "Periphrial clock activation complete");
+    dbc.printOK("Periphrial clock activation complete");
 }
 
 float clk::toMHZ(const uint32_t freq) { return ((float)freq) / 1'000'000.0; }
@@ -200,7 +201,7 @@ float clk::toMHZ(const uint32_t freq) { return ((float)freq) / 1'000'000.0; }
 void clk::logClock(const uint32_t freq, const char *clock_name) {
     char buff[32];
     snprintf(buff, sizeof(buff), "%.5f", clk::toMHZ(freq));
-    // debugConsole::printInfo(logging_active, log_class, "%s %sMHz", clock_name, buff);
+    dbc.printInfo("%s %sMHZ", clock_name, buff);
 }
 
 void clk::infoClocks() {

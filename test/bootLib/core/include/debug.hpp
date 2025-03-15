@@ -73,7 +73,7 @@ class debugConsole {
 class debugClient {
   private:
     // max number of characters before " - " (e.g 'Clock - ')
-    constexpr static uint32_t log_class_name_length = 8;
+    constexpr static uint32_t log_class_name_length = 6;
     constexpr static uint32_t log_class_length = log_class_name_length + sizeof(" - \000");
 
   public:
@@ -85,11 +85,11 @@ class debugClient {
     std::string trimLogClass(std::string &input_str) {
         uint32_t len = input_str.length();
         if (len > this->log_class_name_length) {
-            // trim the string to 8 chars
+            // trim the string to the name length
             input_str.resize(this->log_class_name_length);
         }
         if (len < this->log_class_name_length) {
-            for (; len <= this->log_class_name_length; len++) {
+            for (; len < this->log_class_name_length; len++) {
                 // pad the string to the length
                 input_str.push_back(' ');
             }
@@ -104,19 +104,19 @@ class debugClient {
     }
 
   public:
+    debugClient() = delete;
     debugClient(const debugClient &) = delete;
     debugClient &operator=(const debugClient &) = delete;
     debugClient(debugClient &&) = delete;
     debugClient &operator=(debugClient &&) = delete;
 
-    debugClient(std::string log_class, const bool locally_enabled)
+    explicit debugClient(std::string log_class, const bool locally_enabled)
         // only enable if the global debug switch is also enabled
         : locally_enabled((debugConsole::enabled & locally_enabled)) {
         std::string tmp = this->trimLogClass(log_class);
         this->copyToPrefix(tmp);
     }
     void printError(const char *str, ...) {
-
         va_list args;
         va_start(args, str);
         debugConsole::vprintError(this->locally_enabled, this->log_class_prefix, str, &args);
