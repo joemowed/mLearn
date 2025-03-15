@@ -22,13 +22,14 @@
  */
 
 /* Includes */
+#include <debug.hpp>
 #include <errno.h>
 #include <stdint.h>
 
+static debugClient dbc("SYSCALL", true);
 /**
  * Pointer to the current high watermark of the heap usage
  */
-static uint8_t *__sbrk_heap_end = NULL;
 
 /**
  * @brief _sbrk() allocates memory to the newlib heap and is used by malloc
@@ -51,28 +52,44 @@ static uint8_t *__sbrk_heap_end = NULL;
  * @param incr Memory size
  * @return Pointer to allocated memory
  */
+static uint8_t *__sbrk_heap_end = NULL;
 extern "C" void *_sbrk(ptrdiff_t incr) {
+    dbc.printInfo("Memory requested via _sbrk(), increment size: %d", incr);
     extern uint8_t _end;             /* Symbol defined in the linker script */
     extern uint8_t _estack;          /* Symbol defined in the linker script */
     extern uint32_t _Min_Stack_Size; /* Symbol defined in the linker script */
+    extern uint32_t _Min_Heap_Size;  /* Symbol defined in the linker script */
     const uint32_t stack_limit = (uint32_t)&_estack - (uint32_t)&_Min_Stack_Size;
     const uint8_t *max_heap = (uint8_t *)stack_limit;
     uint8_t *prev_heap_end;
-
+    const uint32_t old_heap_size = (__sbrk_heap_end) - (&_end);
     /* Initialize heap end at first call */
     if (NULL == __sbrk_heap_end) {
         __sbrk_heap_end = &_end;
+    } else {
+        dbc.printInfo("Old heap size: %d bytes", old_heap_size);
     }
-
     /* Protect heap from growing into the reserved MSP stack */
     if (__sbrk_heap_end + incr > max_heap) {
         errno = ENOMEM;
+        dbc.printError("Memory requested via _sbrk(), increment size: %d", incr);
+        dbc.printError("Old heap size: %d bytes", old_heap_size);
+        dbc.printError("MEMORY ALLOCATION FAILED, NO HEAP SPACE AVAILIBLE");
         return (void *)-1;
     }
 
     prev_heap_end = __sbrk_heap_end;
     __sbrk_heap_end += incr;
-
+    uint32_t *tmp = &_Min_Heap_Size;
+    uint32_t min_heap_size = reinterpret_cast<uint32_t>(tmp);
+    const uint32_t new_heap_size = (__sbrk_heap_end) - (&_end);
+    const uint32_t percent_full_heap_defined =
+        (((float)new_heap_size) / ((float)min_heap_size)) * 100.0;
+    const uint32_t avail_heap_space = ((max_heap) - (&_end));
+    const uint32_t percent_full_stack_defined =
+        (((float)new_heap_size) / ((float)avail_heap_space)) * 100.0;
+    dbc.printInfo("New heap size: %d bytes, %d%% full (min heap size) %d%% full (min stack size)",
+                  new_heap_size, percent_full_heap_defined, percent_full_stack_defined);
     return (void *)prev_heap_end;
 }
 /**
