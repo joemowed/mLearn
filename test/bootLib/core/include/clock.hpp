@@ -23,7 +23,7 @@ class clk {
     static bool is_clock_initialized;
     static constexpr uint32_t system_core_clock_reset = 16'000'000;
     constexpr static bool logging_active = true;
-    constexpr static debug::LogClass log_class = "Clock  -";
+    constexpr static debugConsole::LogClass log_class = "Clock  -";
     static void logClock(const uint32_t freq, const char *clock_name);
 
   public:

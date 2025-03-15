@@ -13,5 +13,5 @@ class sys {
 
   private:
     constexpr static bool logging_active = true;
-    constexpr static debug::LogClass log_class = "System -";
+    constexpr static debugConsole::LogClass log_class = "System -";
 };
