@@ -1,3 +1,4 @@
+#include "debug.hpp"
 #include <cstdint>
 consteval uint32_t f2() { return 3; }
 class sys {
@@ -9,4 +10,8 @@ class sys {
     static void enableOverdrive();
     // performs clock/flash/power system initialization
     static void init();
+
+  private:
+    constexpr static bool logging_active = true;
+    constexpr static debug::LogClass log_class = "System -";
 };

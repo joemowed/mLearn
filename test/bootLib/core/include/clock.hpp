@@ -1,5 +1,6 @@
 #ifndef __clock__INC_GRD__
 #define __clock__INC_GRD__
+#include "debug.hpp"
 #include "reg.hpp"
 #include <cstdint>
 class clk {
@@ -19,15 +20,21 @@ class clk {
     static constexpr uint32_t APB1_clock = system_core_clock / APB1_prescaler;
     static constexpr uint32_t APB2_clock = system_core_clock / APB2_prescaler;
     static constexpr uint32_t AHB_clock = system_core_clock / AHB_prescaler;
-    static bool isInitialized;
+    static bool is_clock_initialized;
     static constexpr uint32_t system_core_clock_reset = 16'000'000;
+    constexpr static bool logging_active = true;
+    constexpr static debug::LogClass log_class = "Clock  -";
+    static void logClock(const uint32_t freq, const char *clock_name);
 
   public:
+    static void infoClocks();
+    static float toMHZ(const uint32_t freq);
     static uint32_t getSystemCoreClock();
     static uint32_t getAPB1Clock();
+    static uint32_t getAHBClock();
     static uint32_t getAPB2Clock();
     static uint32_t getAPB1TimerClock();
-    static uint32_t getAPB2TimerCLock();
+    static uint32_t getAPB2TimerClock();
 
     static void initPeriphrialClock(volatile uint32_t &reg, const uint32_t msk);
     // starts clocks as configured in the clk class header

@@ -1,5 +1,8 @@
 #include "clock.hpp"
+#include "debug.hpp"
 #include "reg.hpp"
+#include <cstdio>
+bool clk::is_clock_initialized = false;
 consteval uint32_t divisionFactorToPLLP(uint32_t division_factor) {
     uint32_t ret = 0;
     switch (division_factor) {
@@ -106,7 +109,7 @@ consteval uint32_t divisionFactorToHPRE(uint32_t division_factor) {
 }
 
 uint32_t clk::getSystemCoreClock() {
-    if (clk::isInitialized) {
+    if (clk::is_clock_initialized) {
         return clk::system_core_clock;
     } else {
         return clk::system_core_clock_reset;
@@ -114,7 +117,7 @@ uint32_t clk::getSystemCoreClock() {
 }
 uint32_t clk::getAPB1Clock() {
 
-    if (clk::isInitialized) {
+    if (clk::is_clock_initialized) {
         return clk::APB1_clock;
     } else {
         return clk::system_core_clock_reset;
@@ -122,7 +125,7 @@ uint32_t clk::getAPB1Clock() {
 }
 uint32_t clk::getAPB2Clock() {
 
-    if (clk::isInitialized) {
+    if (clk::is_clock_initialized) {
         return clk::APB2_clock;
     } else {
         return clk::system_core_clock_reset;
@@ -130,22 +133,31 @@ uint32_t clk::getAPB2Clock() {
 }
 uint32_t clk::getAPB1TimerClock() {
 
-    if (clk::isInitialized) {
+    if (clk::is_clock_initialized) {
         return clk::APB1_timer_clock;
     } else {
         return clk::system_core_clock_reset;
     }
 }
-uint32_t clk::getAPB2TimerCLock() {
+uint32_t clk::getAPB2TimerClock() {
 
-    if (clk::isInitialized) {
+    if (clk::is_clock_initialized) {
         return clk::APB2_timer_clock;
     } else {
         return clk::system_core_clock_reset;
     }
 }
-void clk::init() {
+uint32_t clk::getAHBClock() {
 
+    if (clk::is_clock_initialized) {
+        return clk::AHB_clock;
+    } else {
+        return clk::system_core_clock_reset;
+    }
+}
+void clk::init() {
+    debug::printInfo(logging_active, log_class, "Initialization started");
+    clk::infoClocks();
     uint32_t tmp = 0;
     tmp |= val2fld(RCC_PLLCFGR_PLLM, clk::PLLM_prescaler);   // divide refrence clock by x for main PLL
     tmp |= val2fld(RCC_PLLCFGR_PLLN, clk::PLLN_mult_factor); // multiply by x main PLL
@@ -153,6 +165,7 @@ void clk::init() {
     RCC->PLLCFGR = tmp;                                      // configure PLLs
 
     RMW(RCC->CR, RCC_CR_PLLON, 0x1); // turn PLL on
+    debug::printInfo(logging_active, log_class, "PLL enabled");
 
     tmp = 0;
     tmp |= divisionFactorToPPRE1(clk::APB1_prescaler);
@@ -163,13 +176,40 @@ void clk::init() {
     while (!fld2val(RCC_CR_PLLRDY, RCC->CR)) {
         // wait for PLL to be ready
     }
+    debug::printInfo(logging_active, log_class, "PLL ready");
     RMW(RCC->CFGR, RCC_CFGR_SW, RCC_CFGR_SW_PLL); // switch system clock to PLL
+    is_clock_initialized = true;
+    debug::printInfo(logging_active, log_class, "system clock source changed to PLL");
+    clk::infoClocks();
 }
+
 // only works when mask contains only a single non-zero bit
 void clk::initPeriphrialClock(volatile uint32_t &reg, const uint32_t msk) {
+    debug::printInfo(logging_active, log_class, "Periphrial clock activation started");
     xRMW(reg, msk);
     while (!xfld2val(msk, RCC->APB1ENR)) {
         // wait for peripherial clock to be online
     }
+    debug::printInfo(logging_active, log_class, "Periphrial clock activation complete");
 }
-void clk::reset() {}
+
+float clk::toMHZ(const uint32_t freq) { return ((float)freq) / 1'000'000.0; }
+
+void clk::logClock(const uint32_t freq, const char *clock_name) {
+    char buff[32];
+    snprintf(buff, sizeof(buff), "%.5f", clk::toMHZ(freq));
+    debug::printInfo(logging_active, log_class, "%s %sMHz", clock_name, buff);
+}
+
+void clk::infoClocks() {
+    if (!logging_active) {
+        return;
+    } else {
+        clk::logClock(clk::getSystemCoreClock(), "System core clock");
+        clk::logClock(clk::getAHBClock(), "AHB bus clock");
+        clk::logClock(clk::getAPB1Clock(), "APB1 bus clock");
+        clk::logClock(clk::getAPB2Clock(), "APB2 bus clock");
+        clk::logClock(clk::getAPB1TimerClock(), "APB1 timer clock");
+        clk::logClock(clk::getAPB2TimerClock(), "APB2 timer clock");
+    }
+}

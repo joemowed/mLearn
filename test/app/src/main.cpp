@@ -4,7 +4,6 @@
 #include "reg.hpp"
 #include <cmath>
 void init(void) {
-    SEGGER_RTT_Init();
     RMW(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN, 1); // enable GPIO clock
     while (!fld2val(RCC_AHB1ENR_GPIOCEN, RCC->AHB1ENR)) {
         // wait for gpio clock enabled
@@ -13,7 +12,7 @@ void init(void) {
     RMW(GPIOC->OSPEEDR, GPIO_OSPEEDR_OSPEEDR6, 0x3);
     void printfTest();
     debug::printf("this is a test");
-    printfTest();
+    debug::printf("this is a test\n");
 }
 
 void loop(void) {

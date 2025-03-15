@@ -35,6 +35,13 @@ add_executable(${CMAKE_PROJECT_NAME})
 add_subdirectory(bootLib/)
 
 include_directories(../app/include)
+
+if(CMAKE_BUILD_TYPE MATCHES DEBUG)
+    target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC DEBUG=1)
+endif()
+if(CMAKE_BUILD_TYPE MATCHES RELEASE)
+endif()
+
 # Add sources to executable
 FILE(GLOB SOURCES "../app/src/*.cpp")
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
