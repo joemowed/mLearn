@@ -182,7 +182,7 @@ void clk::init() {
     is_clock_initialized = true;
     // debugConsole::printInfo(logging_active, log_class, "system clock source changed to PLL");
     clk::infoClocks();
-    debug::printOK(logging_active, log_class, "system clock initialization complete");
+    // debug::printOK(logging_active, log_class, "system clock initialization complete");
 }
 
 // only works when mask contains only a single non-zero bit

@@ -77,7 +77,7 @@ class debugClient {
     constexpr static uint32_t log_class_length = log_class_name_length + sizeof(" - \000");
 
   public:
-    using LogClassPrefix = char[log_class_name_length + 4];
+    using LogClassPrefix = char[log_class_length];
 
   private:
     LogClassPrefix log_class_prefix;
@@ -111,21 +111,20 @@ class debugClient {
 
     debugClient(std::string log_class, const bool locally_enabled)
         // only enable if the global debug switch is also enabled
-        : locally_enabled{(debugConsole::enabled && locally_enabled)} {
+        : locally_enabled((debugConsole::enabled & locally_enabled)) {
         std::string tmp = this->trimLogClass(log_class);
         this->copyToPrefix(tmp);
     }
     void printError(const char *str, ...) {
+
         va_list args;
         va_start(args, str);
         debugConsole::vprintError(this->locally_enabled, this->log_class_prefix, str, &args);
         va_end(args);
     }
     void printOK(const char *str, ...) {
-        debugConsole::printf("%s %s", str, this->log_class_prefix);
         va_list args;
         va_start(args, str);
-        debugConsole::vprintf(str, &args);
         debugConsole::vprintOK(this->locally_enabled, this->log_class_prefix, str, &args);
         va_end(args);
     }
