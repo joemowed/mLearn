@@ -1,6 +1,8 @@
 #ifndef __debug__INC__GRD__
 #define __debug__INC__GRD__
 #include "SEGGER_RTT.hpp"
+#include <array>
+#include <string>
 class debug {
   private:
 #ifdef DEBUG
@@ -26,7 +28,7 @@ class debug {
             va_end(args);
         }
     }
-    static void printErr(const bool locally_enabled, const char *log_class, const char *str, ...) {
+    static void printError(const bool locally_enabled, LogClass log_class, const char *str, ...) {
         if (!locally_enabled) {
             return;
         }
@@ -35,14 +37,14 @@ class debug {
             va_start(args, str);
             debug::printf(RTT_CTRL_TEXT_RED);
             debug::printf("ERROR: ");
-            debug::printf("%s ", log_class);
+            debug::printf("%s ", log_class.data());
             debug::vprintf(str, &args);
             debug::printf(RTT_CTRL_TEXT_BLACK);
             debug::printf("\n");
             va_end(args);
         }
     }
-    static void printOK(const bool locally_enabled, const char *log_class, const char *str, ...) {
+    static void printOK(const bool locally_enabled, LogClass log_class, const char *str, ...) {
         if (!locally_enabled) {
             return;
         }
@@ -51,14 +53,14 @@ class debug {
             va_start(args, str);
             debug::printf(RTT_CTRL_TEXT_GREEN);
             debug::printf("OK:    ");
-            debug::printf("%s ", log_class);
+            debug::printf("%s ", log_class.data());
             debug::vprintf(str, &args);
             debug::printf(RTT_CTRL_TEXT_BLACK);
             debug::printf("\n");
             va_end(args);
         }
     }
-    static void printInfo(const bool locally_enabled, const char *log_class, const char *str, ...) {
+    static void printInfo(const bool locally_enabled, LogClass log_class, const char *str, ...) {
         if (!locally_enabled) {
             return;
         }
@@ -66,11 +68,30 @@ class debug {
             va_list args;
             va_start(args, str);
             debug::printf("INFO   ");
-            debug::printf("%s ", log_class);
+            debug::printf("%s ", log_class.data());
             debug::vprintf(str, &args);
             debug::printf("\n");
             va_end(args);
         }
+    }
+};
+class debugClient {
+  private:
+    const bool locally_enabled;
+
+    debug::LogClass log_class;
+
+  public:
+    debugClient(std::string log_class, const bool locally_enabled)
+        : locally_enabled{locally_enabled} {
+        if ((log_class.length() + 1) > sizeof(debug::LogClass)) {
+            log_class.erase(sizeof(debug::LogClass) - 2, log_class.length() - 1);
+        } else {
+            std::string tmp((sizeof(debug::LogClass) - 1) - log_class.length(), ' ');
+            log_class += tmp;
+        }
+        log_class += '\0';
+        this->log_class = log_class.c_str();
     }
 };
 #endif
