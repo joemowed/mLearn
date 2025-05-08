@@ -38,7 +38,7 @@ void __attribute__((weak)) irq::SysTick_Handler(void) {
     }
 }
 
-void __attribute__((weak)) WWDG_IRQHandler(void) {
+void __attribute__((weak)) irq::WWDG_IRQHandler(void) {
     while (true) {
     }
 }

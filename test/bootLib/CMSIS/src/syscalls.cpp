@@ -59,7 +59,8 @@ extern "C" void *_sbrk(ptrdiff_t incr) {
     extern uint8_t _estack;          /* Symbol defined in the linker script */
     extern uint32_t _Min_Stack_Size; /* Symbol defined in the linker script */
     extern uint32_t _Min_Heap_Size;  /* Symbol defined in the linker script */
-    const uint32_t stack_limit = (uint32_t)&_estack - (uint32_t)&_Min_Stack_Size;
+    const uint32_t stack_limit =
+        (uint32_t)&_estack - (uint32_t)&_Min_Stack_Size;
     const uint8_t *max_heap = (uint8_t *)stack_limit;
     uint8_t *prev_heap_end;
     const uint32_t old_heap_size = (__sbrk_heap_end) - (&_end);
@@ -72,7 +73,8 @@ extern "C" void *_sbrk(ptrdiff_t incr) {
     /* Protect heap from growing into the reserved MSP stack */
     if (__sbrk_heap_end + incr > max_heap) {
         errno = ENOMEM;
-        dbc.printError("Memory requested via _sbrk(), increment size: %d", incr);
+        dbc.printError("Memory requested via _sbrk(), increment size: %d",
+                       incr);
         dbc.printError("Old heap size: %d bytes", old_heap_size);
         dbc.printError("MEMORY ALLOCATION FAILED, NO HEAP SPACE AVAILIBLE");
         return (void *)-1;
@@ -88,8 +90,10 @@ extern "C" void *_sbrk(ptrdiff_t incr) {
     const uint32_t avail_heap_space = ((max_heap) - (&_end));
     const uint32_t percent_full_stack_defined =
         (((float)new_heap_size) / ((float)avail_heap_space)) * 100.0;
-    dbc.printInfo("New heap size: %d bytes, %d%% full (min heap size) %d%% full (min stack size)",
-                  new_heap_size, percent_full_heap_defined, percent_full_stack_defined);
+    dbc.printInfo("New heap size: %d bytes, %d%% full (min heap size) %d%% "
+                  "full (min stack size)",
+                  new_heap_size, percent_full_heap_defined,
+                  percent_full_stack_defined);
     return (void *)prev_heap_end;
 }
 /**
