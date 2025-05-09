@@ -90,7 +90,8 @@ consteval uint32_t validateValue(const uint32_t msk, const uint32_t value) {
     }
     return value;
 }
-consteval uint32_t val2fld(const uint32_t msk, const uint32_t value) { // tested, working
+consteval uint32_t val2fld(const uint32_t msk,
+                           const uint32_t value) { // tested, working
 
     validateMask(msk);
     const uint32_t shiftedValue = shiftValueToMask(msk, value);
@@ -98,8 +99,15 @@ consteval uint32_t val2fld(const uint32_t msk, const uint32_t value) { // tested
     return shiftedValue;
 }
 #define RMW(reg, msk, value) (reg = ((reg & (~(msk))) | (val2fld(msk, value))))
-#define fld2val(field, reg) (((uint32_t)(reg) & validateMask(field##_Msk)) >> field##_Pos) // tested, working
-inline uint32_t xfld2val(const uint32_t msk, volatile const uint32_t &reg) { return reg & msk; }
+#define fld2val(field, reg)                                                    \
+    (((uint32_t)(reg) & validateMask(field##_Msk)) >>                          \
+     field##_Pos) // tested, working
+                  //
+inline uint32_t xfld2val(const uint32_t msk, volatile const uint32_t &reg) {
+    return reg & msk;
+}
+
 //!!Value must be masked and shifted first, try using _VAL2FLD()!!
 inline void xRMW(volatile uint32_t &reg, const uint32_t value) { reg |= value; }
+
 #endif
